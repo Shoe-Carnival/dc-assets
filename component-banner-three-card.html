@@ -21,16 +21,24 @@
       html,
       body {
         box-sizing: border-box;
+        display: flex;
+        align-items: center;
       }
       body * {
         box-sizing: inherit;
       }
-      .banner {
+
+      #contentRender {
         display: flex;
       }
 
-      .banner img {
-        width: 33.33%;
+      #contentRender .banner {
+        max-width: 33.33333%;
+      }
+
+      #contentRender .banner img {
+        width: 100%;
+        height: auto;
       }
     </style>
   </head>
@@ -38,17 +46,17 @@
     <div id="contentRender"></div>
     <!-- Handlebars Template to render content -->
     <script id="tutorial-template" type="text/x-handlebars-template">
+      <!-- construct image URL from the data. Chose to default to HTTPS -->
+      {{#each banners}}
       <div class="banner">
-        <!-- construct image URL from the data. Chose to default to HTTPS -->
-        {{#each banners}}
-          <img
-            class="banner-background-image"
-            src="https://{{this.banner.picture.desktop.defaultHost}}/i/{{this.banner.picture.desktop.endpoint}}/{{
-              this.banner.picture.desktop.name
-            }}?qlt=25"
-          />
-        {{/each}}
+        <img
+          class="banner-background-image"
+          src="https://{{this.banner.picture.desktop.defaultHost}}/i/{{this.banner.picture.desktop.endpoint}}/{{
+            this.banner.picture.desktop.name
+          }}?qlt=25"
+        />
       </div>
+      {{/each}}
     </script>
     <!-- Load data, inline attributes and render via template -->
     <script>
